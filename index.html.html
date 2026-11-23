@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111827">
+<title>Mapa de Saberes</title>
+<style>
+:root{--bg:#f5f6fb;--panel:#fff;--ink:#182033;--muted:#68738a;--line:#e4e8f0;--accent:#6258d8;--soft:#efedff;--shadow:0 12px 36px #17203310}
+[data-theme=dark]{--bg:#111827;--panel:#1b2639;--ink:#f0f3fb;--muted:#aab4c7;--line:#303d52;--accent:#a6a0ff;--soft:#302d50;--shadow:0 12px 36px #0003}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:11px 16px;font-weight:700;background:var(--accent);color:white}button.secondary{background:var(--soft);color:var(--accent)}button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+header{max-width:1000px;margin:auto;padding:22px;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#6258d8,#a47be8);display:grid;place-items:center;color:white;font-weight:900;font-size:20px}.brand b{display:block}.brand small{color:var(--muted)}
+main{max-width:1000px;margin:auto;padding:12px 22px 55px}.hero{max-width:760px;padding:25px 0 30px}.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:800}.hero h1{font-size:clamp(34px,6vw,54px);line-height:1.04;letter-spacing:-.045em;margin:10px 0 15px}.hero p{font-size:17px;color:var(--muted);margin:0;max-width:720px}
+.tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin-bottom:22px}.tab{background:transparent;color:var(--muted);border-radius:10px 10px 0 0}.tab.active{background:var(--soft);color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow)}h2{font-size:19px;margin:0 0 4px}.sub{color:var(--muted);margin:0 0 18px}.field{margin:14px 0}.field label{display:block;font-size:13px;font-weight:750;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--ink);outline:none}.field textarea{min-height:76px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}.choice{display:grid;grid-template-columns:1fr 1fr;gap:9px}.choice label{border:1px solid var(--line);padding:12px;border-radius:12px;font-weight:700;cursor:pointer}.choice input{accent-color:var(--accent)}.hidden{display:none!important}.row{display:flex;gap:9px;flex-wrap:wrap}.row button{flex:1}.result{background:var(--soft);border:1px dashed var(--accent);border-radius:14px;padding:15px;margin:14px 0}.result strong{display:block;font-size:19px;margin:5px 0}.pill{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 9px;border-radius:99px;font-size:11px;font-weight:800}.muted,.status{color:var(--muted)}.status{font-size:12px;margin-top:12px;min-height:18px}.list{display:grid;gap:10px}.proposal{border:1px solid var(--line);border-radius:14px;padding:15px}.proposal h3{margin:6px 0 3px;font-size:17px}.proposal p{margin:3px 0;color:var(--muted);font-size:13px}.proposal-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.empty{text-align:center;padding:28px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}.notice{background:var(--soft);border-radius:12px;padding:13px;color:var(--muted);font-size:13px;margin-top:16px}.footer{text-align:center;color:var(--muted);font-size:12px;padding-top:30px}
+@media(max-width:720px){header{padding:17px}.grid{grid-template-columns:1fr}main{padding:8px 16px 40px}.hero{padding-top:18px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">M</div><div><b>Mapa de Saberes</b><small>Un tema nuevo, cada 14 días</small></div></div><button class="ghost" id="themeBtn">◐ Tema</button></header>
+<main>
+<section class="hero">
+<div class="eyebrow">Reto de aprendizaje continuo</div>
+<h1>Aprender algo nuevo<br>cada 14 días.</h1>
+<p>¡Hola! Estoy en un reto de aprendizaje continuo. Si quieres ayudarme a combatir mi déficit de atención, elige un tema de tu carrera, profesión o alguna afinidad que tengas. Tendré un plazo de 14 días para aprenderlo. ¡Propón algo que valga la pena descubrir!</p>
+</section>
+<nav class="tabs"><button class="tab active" data-tab="enviar">Proponer un tema</button><button class="tab" data-tab="ver">Ver temas propuestos</button></nav>
+<section id="enviar"><div class="grid">
+<div class="panel">
+<h2>Propón un tema</h2><p class="sub">Puedes elegir un tema tuyo o dejar que la página sortee uno.</p>
+<div class="field"><label for="friend">Tu nombre</label><input id="friend" maxlength="60" placeholder="Escribe tu nombre"></div>
+<div class="field"><label>¿Cómo quieres proponer?</label><div class="choice"><label><input type="radio" name="mode" value="propio" checked> Mi propio tema</label><label><input type="radio" name="mode" value="azar"> Sortear un tema</label></div></div>
+<div id="ownFields">
+<div class="field"><label for="career">Carrera, profesión o afinidad</label><input id="career" maxlength="100" placeholder="Ej. Arquitectura, música, psicología..."></div>
+<div class="field"><label for="topic">Tema que propones</label><input id="topic" maxlength="140" placeholder="¿Qué debería aprender?"></div>
+<div class="field"><label for="note">Comentario opcional</label><textarea id="note" maxlength="300" placeholder="¿Por qué elegiste este tema?"></textarea></div>
+<button id="sendOwn">Enviar propuesta</button>
+</div>
+<div id="randomFields" class="hidden">
+<div class="field"><label for="area">Elige un área</label><select id="area"><option>Cualquier área</option></select></div>
+<button id="drawBtn">Sortear tema</button>
+<div id="drawResult" class="result hidden"><span class="pill" id="drawArea"></span><strong id="drawTopic"></strong><p class="muted" id="drawCareer"></p><div class="row"><button id="acceptBtn">Sí, proponerlo</button><button class="secondary" id="againBtn">No, otro</button></div></div>
+</div><div class="status" id="formStatus"></div>
+</div>
+<div class="panel"><h2>¿Cómo funciona?</h2><p class="sub">La idea es sencilla:</p>
+<ol><li>Un amigo escribe su nombre.</li><li>Propone un tema de su carrera, profesión o afinidad, o sortea uno.</li><li>La propuesta aparece en la lista para que puedas verla.</li><li>Escoges un tema y tienes 14 días para aprenderlo.</li></ol>
+<div class="notice"><b>Comparte el enlace publicado.</b> Las propuestas se guardan en una base de datos compartida para que puedas ver desde tu dispositivo lo que envían tus amigos.</div>
+</div></div></section>
+<section id="ver" class="hidden"><div class="panel">
+<div class="proposal-top"><div><h2>Temas que me han propuesto</h2><p class="sub">Todas las ideas que tus amigos han compartido.</p></div><button class="secondary" id="refreshBtn">Actualizar</button></div>
+<div id="proposalList" class="list"><div class="empty">Cargando propuestas…</div></div><div class="status" id="listStatus"></div>
+</div></section>
+<div class="footer">Mapa de Saberes · Curiosidad con dirección</div>
+</main>
+<script>
+// Configura aquí la URL del proyecto Supabase y la clave anon/public.
+const SUPABASE_URL = "PEGA_AQUI_TU_PROJECT_URL";
+const SUPABASE_ANON_KEY = "PEGA_AQUI_TU_ANON_PUBLIC_KEY";
+const $=id=>document.getElementById(id);
+const topics={
+"Artes y humanidades":[["Filosofía","Ética aplicada"],["Historia","Revolución Industrial"],["Literatura","Narrativa latinoamericana"],["Música","Armonía musical básica"],["Artes visuales","Teoría del color"]],
+"Ciencias naturales":[["Biología","Genética mendeliana"],["Química","Enlaces químicos"],["Física","Termodinámica básica"],["Astronomía","Ciclo de vida de las estrellas"],["Ecología","Ecosistemas y biodiversidad"]],
+"Ingeniería y tecnología":[["Ingeniería Civil","Resistencia de materiales"],["Ingeniería Eléctrica","Circuitos de corriente alterna"],["Ingeniería Mecánica","Máquinas simples y mecanismos"],["Ingeniería de Sistemas","Redes de computadores"],["Ingeniería Industrial","Optimización de procesos"]],
+"Salud":[["Medicina","Sistema endocrino"],["Enfermería","Signos vitales y su interpretación"],["Odontología","Anatomía dental básica"],["Fisioterapia","Biomecánica del movimiento"],["Nutrición","Macronutrientes y metabolismo"]],
+"Ciencias sociales":[["Sociología","Estratificación social"],["Psicología","Procesos de memoria y aprendizaje"],["Antropología","Cultura y relativismo cultural"],["Ciencia Política","Sistemas de gobierno"],["Trabajo Social","Intervención comunitaria"]],
+"Economía y negocios":[["Economía","Oferta, demanda y elasticidad"],["Administración","Planeación estratégica"],["Contaduría","Estados financieros básicos"],["Finanzas","Interés compuesto"],["Mercadeo","Comportamiento del consumidor"]],
+"Derecho y educación":[["Derecho","Jerarquía normativa y Constitución"],["Educación","Diseño instruccional"],["Pedagogía","Teorías del aprendizaje"],["Comunicación","Alfabetización mediática"],["Relaciones Internacionales","Cooperación internacional"]],
+"Matemáticas y datos":[["Matemáticas","Teoría de grafos"],["Estadística","Inferencia estadística"],["Ciencia de Datos","Visualización de datos"],["Matemática Aplicada","Ecuaciones diferenciales"],["Actuaría","Riesgo y probabilidad"]]
+};
+let drawn=null;
+function ready(){return SUPABASE_URL.startsWith("https://")&&SUPABASE_URL.includes(".supabase.co")&&SUPABASE_ANON_KEY.length>20&&!SUPABASE_ANON_KEY.includes("PEGA_AQUI")}
+function headers(){return {"apikey":SUPABASE_ANON_KEY,"Authorization":"Bearer "+SUPABASE_ANON_KEY,"Content-Type":"application/json","Prefer":"return=representation"}}
+async function db(path,options={}){if(!ready())throw Error("Falta conectar Supabase. Revisa las instrucciones de configuración al final del archivo.");const r=await fetch(SUPABASE_URL+"/rest/v1/"+path,{...options,headers:{...headers(),...(options.headers||{})}});if(!r.ok)throw Error(await r.text());return r.status===204?[]:r.json()}
+Object.keys(topics).forEach(a=>$("area").add(new Option(a,a)));
+function mode(){return document.querySelector('input[name="mode"]:checked').value}
+document.querySelectorAll('input[name="mode"]').forEach(x=>x.onchange=()=>{$("ownFields").classList.toggle("hidden",mode()!=="propio");$("randomFields").classList.toggle("hidden",mode()!=="azar")});
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));$("enviar").classList.toggle("hidden",b.dataset.tab!=="enviar");$("ver").classList.toggle("hidden",b.dataset.tab!=="ver");if(b.dataset.tab==="ver")loadProposals()});
+async function submit(data){try{await db("proposals",{method:"POST",body:JSON.stringify(data)});$("formStatus").textContent="¡Propuesta enviada! Gracias por aportar al reto."; $("topic").value="";$("note").value="";$("drawResult").classList.add("hidden")}catch(e){$("formStatus").textContent=e.message}}
+function validName(){if(!$("friend").value.trim()){$("formStatus").textContent="Escribe tu nombre antes de enviar.";return false}return true}
+$("sendOwn").onclick=()=>{if(!validName())return;const career=$("career").value.trim(),topic=$("topic").value.trim();if(!career||!topic){$("formStatus").textContent="Completa tu carrera o afinidad y el tema.";return}submit({friend:$("friend").value.trim(),career,topic,note:$("note").value.trim(),area:"Tema propio",source:"propio"})};
+$("drawBtn").onclick=()=>{const selected=$("area").value,areas=selected==="Cualquier área"?Object.keys(topics):[selected],a=areas[Math.floor(Math.random()*areas.length)],pair=topics[a][Math.floor(Math.random()*topics[a].length)];drawn={area:a,career:pair[0],topic:pair[1]};$("drawArea").textContent=a;$("drawTopic").textContent=pair[1];$("drawCareer").textContent="Área o carrera: "+pair[0];$("drawResult").classList.remove("hidden")};
+$("againBtn").onclick=()=>$("drawBtn").click();
+$("acceptBtn").onclick=()=>{if(!validName())return;submit({friend:$("friend").value.trim(),career:drawn.career,topic:drawn.topic,note:"Tema seleccionado mediante sorteo",area:drawn.area,source:"azar"})};
+async function loadProposals(){const el=$("proposalList");el.innerHTML='<div class="empty">Cargando propuestas…</div>';try{const rows=await db("proposals?select=*&order=created_at.desc");el.innerHTML="";if(!rows.length){el.innerHTML='<div class="empty">Aún no hay propuestas. ¡Comparte el enlace con tus amigos!</div>';return}rows.forEach(p=>{const card=document.createElement("article");card.className="proposal";const top=document.createElement("div");top.className="proposal-top";const pill=document.createElement("span");pill.className="pill";pill.textContent=p.area||"Tema";const date=document.createElement("span");date.className="muted";date.style.fontSize="12px";date.textContent=new Date(p.created_at).toLocaleDateString("es-CO");top.append(pill,date);const h=document.createElement("h3");h.textContent=p.topic;const by=document.createElement("p");by.textContent="Propuesto por "+p.friend+" · "+p.career;card.append(top,h,by);if(p.note){const note=document.createElement("p");note.textContent=p.note;card.append(note)}el.append(card)})}catch(e){el.innerHTML='<div class="empty">No se pudieron cargar las propuestas.</div>';$("listStatus").textContent=e.message}}
+$("refreshBtn").onclick=loadProposals;
+$("themeBtn").onclick=()=>{const t=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=t;localStorage.setItem("ms_theme",t)};document.documentElement.dataset.theme=localStorage.getItem("ms_theme")||"light";
+</script>
+<!--
+CONFIGURACIÓN PARA COMPARTIRLO CON TUS AMIGOS (GRATIS):
+1. Crea un proyecto en https://supabase.com/
+2. En Project Settings > API, copia Project URL y la clave anon/public.
+3. Arriba en este archivo, reemplaza:
+   SUPABASE_URL = "PEGA_AQUI_TU_PROJECT_URL"
+   SUPABASE_ANON_KEY = "PEGA_AQUI_TU_ANON_PUBLIC_KEY"
+   No uses la clave service_role.
+4. En Supabase > SQL Editor, ejecuta este SQL:
+
+create table public.proposals (
+  id bigint generated by default as identity primary key,
+  friend text not null,
+  career text not null,
+  topic text not null,
+  note text,
+  area text,
+  source text,
+  created_at timestamptz not null default now()
+);
+alter table public.proposals enable row level security;
+create policy "Anyone can submit proposals"
+on public.proposals for insert to anon with check (true);
+create policy "Anyone can read proposals"
+on public.proposals for select to anon using (true);
+
+5. Publica este HTML en Netlify Drop (https://app.netlify.com/drop) o GitHub Pages.
+6. Comparte el enlace público que te dé el hosting. Tus amigos podrán enviar temas y tú podrás verlos en "Ver temas propuestos".
+
+Las propuestas son públicas para quienes tengan acceso a la página. No incluyan información privada.
+-->
+</body>
+</html>
